@@ -71,6 +71,7 @@ export default {
     sendMessage(e) {
       e.preventDefault();
       if (this.handleSend) this.handleSend(this.inputField);
+      this.dismissTyping(null);
       this.inputField = "";
     },
     indicateMessage(e) {

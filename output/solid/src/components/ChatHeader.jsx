@@ -42,7 +42,9 @@ function ChatHeader(props) {
             "line-height": "1.5rem",
           }}
         >
-          ChatBot
+          <Show fallback={<span>ChatBot</span>} when={props.botName}>
+            <span>{props.botName}</span>
+          </Show>
         </div>
         <div
           style={{

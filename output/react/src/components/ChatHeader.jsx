@@ -42,7 +42,13 @@ export default function ChatHeader(props) {
             lineHeight: "1.5rem",
           }}
         >
-          ChatBot
+          {props.botName ? (
+            <>
+              <span>{props.botName}</span>
+            </>
+          ) : (
+            <span>ChatBot</span>
+          )}
         </div>
 
         <div

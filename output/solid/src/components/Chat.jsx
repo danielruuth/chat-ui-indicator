@@ -132,6 +132,7 @@ function Chat(props) {
               offline={props.offline}
               colorOffline={props.colorOffline}
               colorOnline={props.colorOnline}
+              botName={props.botName}
             ></ChatHeader>
             <ChatMessages
               bgColorChat={props.bgColorChat}

@@ -11,6 +11,7 @@ export interface ChatHeaderProps  {
     bgColorHeader?: string;
     bgColorIcon?: string;
     headerHeight?: string;
+    botName?: string;
 }
 
 export default function ChatHeader(props: ChatHeaderProps) {
@@ -39,7 +40,9 @@ export default function ChatHeader(props: ChatHeaderProps) {
                     fontSize: '1.10rem',
                     lineHeight: '1.5rem'
                 }}>
-                    ChatBot
+                    <Show when={props.botName} else={<span>ChatBot</span>}>
+                    <span>{ props.botName }</span>
+                    </Show>
                 </div>
                 <div style={{ display: 'flex' }}>
                     <div style={{

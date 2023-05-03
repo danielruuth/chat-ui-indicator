@@ -90,6 +90,7 @@
             :offline="offline"
             :colorOffline="colorOffline"
             :colorOnline="colorOnline"
+            :botName="botName"
           ></chat-header>
           <chat-messages
             :bgColorChat="bgColorChat"
@@ -144,6 +145,7 @@ export default {
     "offline",
     "colorOffline",
     "colorOnline",
+    "botName",
     "bgColorChat",
     "bgColorMessageChatbot",
     "bgColorMessagePerson",

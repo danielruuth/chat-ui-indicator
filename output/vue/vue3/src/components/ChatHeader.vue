@@ -37,7 +37,13 @@
           lineHeight: '1.5rem',
         }"
       >
-        ChatBot
+        <template v-if="botName">
+          <span>{{ botName }}</span>
+        </template>
+
+        <template v-else>
+          <span>ChatBot</span>
+        </template>
       </div>
       <div
         :style="{
@@ -102,6 +108,7 @@ export default {
     "bgColorIcon",
     "fillColorIcon",
     "textColorHeader",
+    "botName",
     "offline",
     "colorOffline",
     "colorOnline",

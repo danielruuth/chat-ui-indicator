@@ -30,7 +30,8 @@ export interface ChatProps  {
     headerHeight?: string;
     inputHeight?: string;
     inputPlaceholder?: string;
-    botTyping?: boolean
+    botTyping?: boolean;
+    botName?: string;
 }
 
 export default function Chat(props: ChatProps) {
@@ -116,6 +117,7 @@ export default function Chat(props: ChatProps) {
                             offline={props.offline}
                             colorOffline={props.colorOffline}
                             colorOnline={props.colorOnline}
+                            botName={props.botName}
                         />
                         <ChatMessages
                             bgColorChat={props.bgColorChat}

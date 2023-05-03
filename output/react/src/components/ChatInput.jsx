@@ -9,6 +9,7 @@ export default function ChatInput(props) {
   function sendMessage(e) {
     e.preventDefault();
     if (props.handleSend) props.handleSend(inputField);
+    dismissTyping(null);
     setInputField("");
   }
 
