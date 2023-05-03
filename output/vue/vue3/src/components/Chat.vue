@@ -100,8 +100,11 @@
             :textColorMessagePerson="textColorMessagePerson"
             :textColorMessageTimestamp="textColorMessageTimestamp"
             :chat="chat"
+            :isTyping="isTyping"
+            :botTyping="botTyping"
           ></chat-messages>
           <chat-input
+            :handleTyping="handleTyping"
             :handleSend="onSend"
             :inputHeight="inputHeight"
             :bgColorInput="bgColorInput"
@@ -149,6 +152,7 @@ export default {
     "textColorMessagePerson",
     "textColorMessageTimestamp",
     "chat",
+    "botTyping",
     "onSend",
     "inputHeight",
     "bgColorInput",
@@ -156,14 +160,23 @@ export default {
     "inputPlaceholder",
   ],
 
-  data: () => ({ chatOpen: false }),
+  data: () => ({ chatOpen: false, isTyping: "" }),
 
   methods: {
     stateCloseChat() {
       this.chatOpen = false;
+      this.isTyping = "";
     },
     stateOpenChat() {
       this.chatOpen = true;
+      this.isTyping = "";
+    },
+    handleTyping(isTyping) {
+      if (isTyping) {
+        this.isTyping = "customer";
+      } else {
+        this.isTyping = "";
+      }
     },
   },
 };

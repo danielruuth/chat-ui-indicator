@@ -4,10 +4,29 @@ import { useState } from "react";
 export default function ChatInput(props) {
   const [inputField, setInputField] = useState(() => "");
 
+  const [timeoutVar, setTimeoutVar] = useState(() => null);
+
   function sendMessage(e) {
     e.preventDefault();
     if (props.handleSend) props.handleSend(inputField);
     setInputField("");
+  }
+
+  function indicateMessage(e) {
+    setInputField(e.target.value);
+    if (props.handleTyping) props.handleTyping(true);
+    if (timeoutVar) {
+      clearTimeout(timeoutVar);
+    }
+    setTimeoutVar(
+      setTimeout(() => {
+        dismissTyping(null);
+      }, 3000)
+    );
+  }
+
+  function dismissTyping(e) {
+    if (props.handleTyping) props.handleTyping(false);
   }
 
   return (
@@ -23,8 +42,8 @@ export default function ChatInput(props) {
       >
         <input
           className="input"
+          onInput={(event) => indicateMessage(event)}
           placeholder={props.inputPlaceholder || "Type your message here"}
-          onInput={(event) => setInputField(event.target.value)}
           value={inputField}
           style={{
             borderWidth: "0px",

@@ -6,16 +6,34 @@ export interface ChatInputProps {
     bgColorInput?: string;
     textColorInput?: string;
     inputPlaceholder?: string;
+    handleTyping?: (event:any) => void;
 }
+
 
 export default function ChatInput(props: ChatInputProps) {
     const state = useStore({
         inputField: '',
+        timeoutVar:null,
         sendMessage: (e: any) => {
             e.preventDefault();
             if (props.handleSend) props.handleSend(state.inputField);
+            state.dismissTyping(null);
             state.inputField = '';
         },
+        indicateMessage: (e: any) => {
+            state.inputField = e.target.value
+            if(props.handleTyping) props.handleTyping(true)
+            if(state.timeoutVar){
+                clearTimeout(state.timeoutVar)
+            }
+            state.timeoutVar = setTimeout(()=>{
+                state.dismissTyping(null)
+            },3000)
+
+        },
+        dismissTyping: (e: any) => {
+            if(props.handleTyping) props.handleTyping(false)
+        }
     });
 
     return (
@@ -26,8 +44,8 @@ export default function ChatInput(props: ChatInputProps) {
             backgroundColor: props.bgColorInput || 'white',
             color: props.textColorInput || 'black',
         }}>
-            <input placeholder={props.inputPlaceholder || 'Type your message here'}
-                onInput={(event) => state.inputField = event.target.value} value={state.inputField}
+            <input onInput={(event) => state.indicateMessage(event)} placeholder={props.inputPlaceholder || 'Type your message here'}
+                value={state.inputField}
                 style={{
                     borderWidth: '0px',
                     backgroundColor: props.bgColorInput || 'white',

@@ -9,6 +9,8 @@ export interface ChatMessagesProps  {
     textColorMessageChatbot?: string;
     textColorMessagePerson?: string;
     textColorMessageTimestamp?: string;
+    isTyping: string,
+    botTyping:boolean
 }
 
 export default function ChatMessages(props: ChatMessagesProps) {
@@ -152,6 +154,128 @@ export default function ChatMessages(props: ChatMessagesProps) {
                 </div >
             }
             </For >
+            <Show when={props.botTyping}>
+                <div css={{
+                                    position: 'relative',
+                                    borderRadius: '0.75rem',
+                                    padding: '1rem',
+                                    width: 'fit-content',
+                                    maxWidth: '80%',
+                                    marginBottom: '1rem',
+                                    marginRight: 'auto',
+                                }}
+                                style={{
+                                    backgroundColor: props.bgColorMessageChatbot || 'white',
+                                    color: props.textColorMessageChatbot || 'black',
+                                }}>
+                    <svg
+          width="40px"
+          height="24px"
+          viewBox="0 0 40 24"
+          preserveAspectRatio="xMidYMid"
+        >
+          <circle cx="5" cy="12" r="5" fill="#6a6a6a">
+            <animate
+              attributeName="cy"
+              calcMode="spline"
+              keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5"
+              repeatCount="indefinite"
+              values="12;5;12;12"
+              keyTimes="0;0.255;0.51;1"
+              dur="0.8474576271186441s"
+              begin="-0.4322033898305085s"
+            ></animate>
+          </circle>
+          <circle cx="20" cy="12" r="5" fill="#979797">
+            <animate
+              attributeName="cy"
+              calcMode="spline"
+              keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5"
+              repeatCount="indefinite"
+              values="12;5;12;12"
+              keyTimes="0;0.255;0.51;1"
+              dur="0.8474576271186441s"
+              begin="-0.288135593220339s"
+            ></animate>
+          </circle>
+          <circle cx="35" cy="12" r="5" fill="#bdbdbd">
+            <animate
+              attributeName="cy"
+              calcMode="spline"
+              keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5"
+              repeatCount="indefinite"
+              values="12;5;12;12"
+              keyTimes="0;0.255;0.51;1"
+              dur="0.8474576271186441s"
+              begin="-0.1440677966101695s"
+            ></animate>
+          </circle>
+        </svg>
+                </div>
+            </Show>
+            <Show when={props.isTyping == 'customer'}>
+            <div class="typing" css={{
+                                    position: 'relative',
+                                    borderRadius: '0.75rem',
+                                    padding: '1rem',
+                                    width: 'fit-content',
+                                    maxWidth: '80%',
+                                    marginBottom: '1rem',
+                                    marginLeft: 'auto',
+                                }}
+                                style={{
+                                    backgroundColor: props.bgColorMessagePerson || '#025CDB',
+                                    color: props.textColorMessagePerson || 'white',
+                                }}>
+                    <svg
+          width="40px"
+          height="24px"
+          viewBox="0 0 40 24"
+          preserveAspectRatio="xMidYMid"
+        >
+          <circle cx="5" cy="12" r="5" fill="#6a6a6a">
+            <animate
+              attributeName="cy"
+              calcMode="spline"
+              keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5"
+              repeatCount="indefinite"
+              values="12;5;12;12"
+              keyTimes="0;0.255;0.51;1"
+              dur="0.8474576271186441s"
+              begin="-0.4322033898305085s"
+            ></animate>
+          </circle>
+          <circle cx="20" cy="12" r="5" fill="#979797">
+            <animate
+              attributeName="cy"
+              calcMode="spline"
+              keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5"
+              repeatCount="indefinite"
+              values="12;5;12;12"
+              keyTimes="0;0.255;0.51;1"
+              dur="0.8474576271186441s"
+              begin="-0.288135593220339s"
+            ></animate>
+          </circle>
+          <circle cx="35" cy="12" r="5" fill="#bdbdbd">
+            <animate
+              attributeName="cy"
+              calcMode="spline"
+              keySplines="0 0.5 0.5 1;0.5 0 1 0.5;0.5 0.5 0.5 0.5"
+              repeatCount="indefinite"
+              values="12;5;12;12"
+              keyTimes="0;0.255;0.51;1"
+              dur="0.8474576271186441s"
+              begin="-0.1440677966101695s"
+            ></animate>
+          </circle>
+        </svg>
+                </div>
+            </Show>
         </div >
     );
 }
+
+  
+  
+  

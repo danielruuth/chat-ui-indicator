@@ -10,8 +10,8 @@
   >
     <input
       class="input"
+      @input="indicateMessage($event)"
       :placeholder="inputPlaceholder || 'Type your message here'"
-      @input="inputField = $event.target.value"
       :value="inputField"
       :style="{
         borderWidth: '0px',
@@ -58,19 +58,33 @@ export default {
 
   props: [
     "handleSend",
+    "handleTyping",
     "inputHeight",
     "bgColorInput",
     "textColorInput",
     "inputPlaceholder",
   ],
 
-  data: () => ({ inputField: "" }),
+  data: () => ({ inputField: "", timeoutVar: null }),
 
   methods: {
     sendMessage(e) {
       e.preventDefault();
       if (this.handleSend) this.handleSend(this.inputField);
       this.inputField = "";
+    },
+    indicateMessage(e) {
+      this.inputField = e.target.value;
+      if (this.handleTyping) this.handleTyping(true);
+      if (this.timeoutVar) {
+        clearTimeout(this.timeoutVar);
+      }
+      this.timeoutVar = setTimeout(() => {
+        this.dismissTyping(null);
+      }, 3000);
+    },
+    dismissTyping(e) {
+      if (this.handleTyping) this.handleTyping(false);
     },
   },
 };

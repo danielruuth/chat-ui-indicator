@@ -30,17 +30,28 @@ export interface ChatProps  {
     headerHeight?: string;
     inputHeight?: string;
     inputPlaceholder?: string;
+    botTyping?: boolean
 }
 
 export default function Chat(props: ChatProps) {
     const state = useStore({
         chatOpen: false,
+        isTyping: '',
         stateCloseChat() {
             state.chatOpen = false
+            state.isTyping = ''
         },
         stateOpenChat() {
             state.chatOpen = true
+            state.isTyping = ''
         },
+        handleTyping(isTyping) {
+            if(isTyping){
+            state.isTyping = 'customer'
+            }else{
+                state.isTyping = ''
+            }
+        }
     });
 
     return (
@@ -115,8 +126,11 @@ export default function Chat(props: ChatProps) {
                             textColorMessagePerson={props.textColorMessagePerson}
                             textColorMessageTimestamp={props.textColorMessageTimestamp}
                             chat={props.chat}
+                            isTyping={state.isTyping}
+                            botTyping={props.botTyping}
                         />
                         <ChatInput
+                            handleTyping={state.handleTyping}
                             handleSend={props.onSend}
                             inputHeight={props.inputHeight}
                             bgColorInput={props.bgColorInput}

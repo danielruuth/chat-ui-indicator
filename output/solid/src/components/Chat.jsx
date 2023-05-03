@@ -8,12 +8,24 @@ import ChatIcon from "./ChatIcon.jsx";
 function Chat(props) {
   const [chatOpen, setChatOpen] = createSignal(false);
 
+  const [isTyping, setIsTyping] = createSignal("");
+
   function stateCloseChat() {
     setChatOpen(false);
+    setIsTyping("");
   }
 
   function stateOpenChat() {
     setChatOpen(true);
+    setIsTyping("");
+  }
+
+  function handleTyping(isTyping) {
+    if (isTyping) {
+      setIsTyping("customer");
+    } else {
+      setIsTyping("");
+    }
   }
 
   return (
@@ -130,8 +142,11 @@ function Chat(props) {
               textColorMessagePerson={props.textColorMessagePerson}
               textColorMessageTimestamp={props.textColorMessageTimestamp}
               chat={props.chat}
+              isTyping={isTyping()}
+              botTyping={props.botTyping}
             ></ChatMessages>
             <ChatInput
+              handleTyping={handleTyping}
               handleSend={props.onSend}
               inputHeight={props.inputHeight}
               bgColorInput={props.bgColorInput}

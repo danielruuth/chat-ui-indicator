@@ -5,10 +5,29 @@ import { css } from "solid-styled-components";
 function ChatInput(props) {
   const [inputField, setInputField] = createSignal("");
 
+  const [timeoutVar, setTimeoutVar] = createSignal(null);
+
   function sendMessage(e) {
     e.preventDefault();
     if (props.handleSend) props.handleSend(inputField());
     setInputField("");
+  }
+
+  function indicateMessage(e) {
+    setInputField(e.target.value);
+    if (props.handleTyping) props.handleTyping(true);
+    if (timeoutVar()) {
+      clearTimeout(timeoutVar());
+    }
+    setTimeoutVar(
+      setTimeout(() => {
+        dismissTyping(null);
+      }, 3000)
+    );
+  }
+
+  function dismissTyping(e) {
+    if (props.handleTyping) props.handleTyping(false);
   }
 
   return (
@@ -27,8 +46,8 @@ function ChatInput(props) {
             outline: "none",
           },
         })}
+        onInput={(event) => indicateMessage(event)}
         placeholder={props.inputPlaceholder || "Type your message here"}
-        onInput={(event) => setInputField(event.target.value)}
         value={inputField()}
         style={{
           "border-width": "0px",
