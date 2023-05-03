@@ -1,5 +1,16 @@
 # chat-ui
 
+**This is a fork of @nvima's great code, with a minor edition of adding a chat indicator to the component.**
+
+Added the prop :botTyping (bool) to indicate if the bot is "typing":
+```
+<Chat :chat="chatLog" :botTyping="botTyping" :onSend="handleMessage" />
+```
+The rest of the component works as described bu nvima
+
+
+## Original repos readme
+
 This Chat is fully customizable.
 Currently supported Frameworks: Vue3, React, Solid
 
