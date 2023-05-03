@@ -1,5 +1,7 @@
 # chat-ui
 
+This is a fork of @nvima's great code, with a minor edition of adding a chat idicator to the component.
+
 This Chat is fully customizable.
 Currently supported Frameworks: Vue3, React, Solid
 
