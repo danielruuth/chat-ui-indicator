@@ -13,11 +13,14 @@ export default function Chat(props) {
   function stateCloseChat() {
     setChatOpen(false);
     setIsTyping("");
+    dispatchEvent(new Event("chat.close"));
+    if (props.onClose) props.onClose(null);
   }
 
   function stateOpenChat() {
     setChatOpen(true);
     setIsTyping("");
+    if (props.onOpen) props.onOpen(null);
   }
 
   function handleTyping(isTyping) {

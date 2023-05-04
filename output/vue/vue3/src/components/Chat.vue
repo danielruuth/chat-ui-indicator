@@ -133,6 +133,8 @@ export default {
     ChatInput: ChatInput,
   },
   props: [
+    "onClose",
+    "onOpen",
     "bgColorIcon",
     "margin",
     "fillColorIcon",
@@ -168,10 +170,13 @@ export default {
     stateCloseChat() {
       this.chatOpen = false;
       this.isTyping = "";
+      dispatchEvent(new Event("chat.close"));
+      if (this.onClose) this.onClose(null);
     },
     stateOpenChat() {
       this.chatOpen = true;
       this.isTyping = "";
+      if (this.onOpen) this.onOpen(null);
     },
     handleTyping(isTyping) {
       if (isTyping) {

@@ -6,6 +6,8 @@ import { useStore } from '@builder.io/mitosis'
 
 export interface ChatProps  {
     onSend?: (event: any) => void;
+    onOpen?: (event: any) => void;
+    onClose?: (event: any) => void;
     chat?: [];
     bgColorHeader?: string;
     bgColorChat?: string;
@@ -41,14 +43,17 @@ export default function Chat(props: ChatProps) {
         stateCloseChat() {
             state.chatOpen = false
             state.isTyping = ''
+            dispatchEvent(new Event('chat.close'))
+            if (props.onClose) props.onClose(null);
         },
         stateOpenChat() {
             state.chatOpen = true
             state.isTyping = ''
+            if (props.onOpen) props.onOpen(null);
         },
         handleTyping(isTyping) {
             if(isTyping){
-            state.isTyping = 'customer'
+                state.isTyping = 'customer'
             }else{
                 state.isTyping = ''
             }
