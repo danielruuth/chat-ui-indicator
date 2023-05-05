@@ -5,6 +5,11 @@ import { css } from "solid-styled-components";
 function ChatMessages(props) {
   const [chatElementAdded, setChatElementAdded] = createSignal(false);
 
+  function selectOption(index) {
+    if (props.handleSelectOption) props.handleSelectOption(index);
+    console.log("Option selected");
+  }
+
   function scrollToEnd(container) {
     const containerHeight = container.clientHeight;
     const contentHeight = container.scrollHeight;
@@ -138,6 +143,43 @@ if (container) scrollToEnd(container);
                     {chatMessage.message}
                   </div>
                 </div>
+                <Show when={chatMessage.options}>
+                  <div
+                    class={css({
+                      display: "flex",
+                      alignItems: "flex-start",
+                      top: "-1.7rem",
+                      left: "1rem",
+                      position: "relative",
+                    })}
+                  >
+                    <For each={chatMessage.options}>
+                      {(option, _index) => {
+                        const index = _index();
+                        return (
+                          <button
+                            class={css({
+                              position: "relative",
+                              borderRadius: "0.5rem",
+                              padding: "0.2rem 1rem 0.2rem 1rem",
+                              marginBottom: "1rem",
+                              marginRight: "0.5rem",
+                              cursor: "pointer",
+                            })}
+                            style={{
+                              "background-color":
+                                props.bgColorMessagePerson || "#025CDB",
+                              color: props.textColorMessagePerson || "white",
+                            }}
+                            onClick={(event) => selectOption(option)}
+                          >
+                            {option}
+                          </button>
+                        );
+                      }}
+                    </For>
+                  </div>
+                </Show>
               </Show>
             </div>
           );
@@ -229,7 +271,7 @@ if (container) scrollToEnd(container);
             viewBox="0 0 40 24"
             preserveAspectRatio="xMidYMid"
           >
-            <circle cx="5" cy="12" r="5" fill="#6a6a6a">
+            <circle cx="5" cy="12" r="5" fill="rgba(255,255,255,1)">
               <animate
                 attributeName="cy"
                 calcMode="spline"
@@ -241,7 +283,7 @@ if (container) scrollToEnd(container);
                 begin="-0.4322033898305085s"
               ></animate>
             </circle>
-            <circle cx="20" cy="12" r="5" fill="#979797">
+            <circle cx="20" cy="12" r="5" fill="rgba(255,255,255,.75)">
               <animate
                 attributeName="cy"
                 calcMode="spline"
@@ -253,7 +295,7 @@ if (container) scrollToEnd(container);
                 begin="-0.288135593220339s"
               ></animate>
             </circle>
-            <circle cx="35" cy="12" r="5" fill="#bdbdbd">
+            <circle cx="35" cy="12" r="5" fill="rgba(255,255,255,.5)">
               <animate
                 attributeName="cy"
                 calcMode="spline"

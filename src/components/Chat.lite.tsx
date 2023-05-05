@@ -8,6 +8,7 @@ export interface ChatProps  {
     onSend?: (event: any) => void;
     onOpen?: (event: any) => void;
     onClose?: (event: any) => void;
+    onOptionSelected?: (index: number) => void;
     chat?: [];
     bgColorHeader?: string;
     bgColorChat?: string;
@@ -57,6 +58,9 @@ export default function Chat(props: ChatProps) {
             }else{
                 state.isTyping = ''
             }
+        },
+        handleOptionSelected(message){
+            
         }
     });
 
@@ -135,6 +139,7 @@ export default function Chat(props: ChatProps) {
                             chat={props.chat}
                             isTyping={state.isTyping}
                             botTyping={props.botTyping}
+                            handleSelectOption={props.onOptionSelected}
                         />
                         <ChatInput
                             handleTyping={state.handleTyping}

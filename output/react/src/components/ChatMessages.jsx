@@ -4,6 +4,11 @@ import { useState, useEffect } from "react";
 export default function ChatMessages(props) {
   const [chatElementAdded, setChatElementAdded] = useState(() => false);
 
+  function selectOption(index) {
+    if (props.handleSelectOption) props.handleSelectOption(index);
+    console.log("Option selected");
+  }
+
   function scrollToEnd(container) {
     const containerHeight = container.clientHeight;
     const contentHeight = container.scrollHeight;
@@ -96,6 +101,25 @@ export default function ChatMessages(props) {
                     {chatMessage.message}
                   </div>
                 </div>
+                {chatMessage.options ? (
+                  <>
+                    <div className="div-6">
+                      {chatMessage.options?.map((option, index) => (
+                        <button
+                          className="button"
+                          style={{
+                            backgroundColor:
+                              props.bgColorMessagePerson || "#025CDB",
+                            color: props.textColorMessagePerson || "white",
+                          }}
+                          onClick={(event) => selectOption(option)}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  </>
+                ) : null}
               </>
             ) : null}
           </div>
@@ -104,7 +128,7 @@ export default function ChatMessages(props) {
         {props.botTyping ? (
           <>
             <div
-              className="div-6"
+              className="div-7"
               style={{
                 backgroundColor: props.bgColorMessageChatbot || "white",
                 color: props.textColorMessageChatbot || "black",
@@ -162,7 +186,7 @@ export default function ChatMessages(props) {
         {props.isTyping == "customer" ? (
           <>
             <div
-              className="typing div-7"
+              className="typing div-8"
               style={{
                 backgroundColor: props.bgColorMessagePerson || "#025CDB",
                 color: props.textColorMessagePerson || "white",
@@ -174,7 +198,7 @@ export default function ChatMessages(props) {
                 viewBox="0 0 40 24"
                 preserveAspectRatio="xMidYMid"
               >
-                <circle cx="5" cy="12" r="5" fill="#6a6a6a">
+                <circle cx="5" cy="12" r="5" fill="rgba(255,255,255,1)">
                   <animate
                     attributeName="cy"
                     calcMode="spline"
@@ -187,7 +211,7 @@ export default function ChatMessages(props) {
                   />
                 </circle>
 
-                <circle cx="20" cy="12" r="5" fill="#979797">
+                <circle cx="20" cy="12" r="5" fill="rgba(255,255,255,.75)">
                   <animate
                     attributeName="cy"
                     calcMode="spline"
@@ -200,7 +224,7 @@ export default function ChatMessages(props) {
                   />
                 </circle>
 
-                <circle cx="35" cy="12" r="5" fill="#bdbdbd">
+                <circle cx="35" cy="12" r="5" fill="rgba(255,255,255,.5)">
                   <animate
                     attributeName="cy"
                     calcMode="spline"
@@ -267,6 +291,21 @@ export default function ChatMessages(props) {
           z-index: 9999;
         }
         .div-6 {
+          display: flex;
+          align-items: flex-start;
+          top: -1.7rem;
+          left: 1rem;
+          position: relative;
+        }
+        .button {
+          position: relative;
+          border-radius: 0.5rem;
+          padding: 0.2rem 1rem 0.2rem 1rem;
+          margin-bottom: 1rem;
+          margin-right: 0.5rem;
+          cursor: pointer;
+        }
+        .div-7 {
           position: relative;
           border-radius: 0.75rem;
           padding: 1rem;
@@ -275,7 +314,7 @@ export default function ChatMessages(props) {
           margin-bottom: 1rem;
           margin-right: auto;
         }
-        .div-7 {
+        .div-8 {
           position: relative;
           border-radius: 0.75rem;
           padding: 1rem;

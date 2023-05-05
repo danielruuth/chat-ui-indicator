@@ -62,13 +62,33 @@
               {{ chatMessage.message }}
             </div>
           </div>
+
+          <template v-if="chatMessage.options">
+            <div class="div-6">
+              <template
+                :key="index"
+                v-for="(option, index) in chatMessage.options"
+              >
+                <button
+                  class="button"
+                  :style="{
+                    backgroundColor: bgColorMessagePerson || '#025CDB',
+                    color: textColorMessagePerson || 'white',
+                  }"
+                  @click="selectOption(option)"
+                >
+                  {{ option }}
+                </button>
+              </template>
+            </div>
+          </template>
         </template>
       </div>
     </template>
 
     <template v-if="botTyping">
       <div
-        class="div-6"
+        class="div-7"
         :style="{
           backgroundColor: bgColorMessageChatbot || 'white',
           color: textColorMessageChatbot || 'black',
@@ -122,7 +142,7 @@
 
     <template v-if="isTyping == 'customer'">
       <div
-        class="typing div-7"
+        class="typing div-8"
         :style="{
           backgroundColor: bgColorMessagePerson || '#025CDB',
           color: textColorMessagePerson || 'white',
@@ -134,7 +154,7 @@
           viewBox="0 0 40 24"
           preserveAspectRatio="xMidYMid"
         >
-          <circle cx="5" cy="12" r="5" fill="#6a6a6a">
+          <circle cx="5" cy="12" r="5" fill="rgba(255,255,255,1)">
             <animate
               attributeName="cy"
               calcMode="spline"
@@ -146,7 +166,7 @@
               begin="-0.4322033898305085s"
             ></animate>
           </circle>
-          <circle cx="20" cy="12" r="5" fill="#979797">
+          <circle cx="20" cy="12" r="5" fill="rgba(255,255,255,.75)">
             <animate
               attributeName="cy"
               calcMode="spline"
@@ -158,7 +178,7 @@
               begin="-0.288135593220339s"
             ></animate>
           </circle>
-          <circle cx="35" cy="12" r="5" fill="#bdbdbd">
+          <circle cx="35" cy="12" r="5" fill="rgba(255,255,255,.5)">
             <animate
               attributeName="cy"
               calcMode="spline"
@@ -181,6 +201,7 @@ export default {
   name: "chat-messages",
 
   props: [
+    "handleSelectOption",
     "bgColorChat",
     "chat",
     "bgColorMessagePerson",
@@ -221,6 +242,10 @@ export default {
   },
 
   methods: {
+    selectOption(index) {
+      if (this.handleSelectOption) this.handleSelectOption(index);
+      console.log("Option selected");
+    },
     scrollToEnd: function scrollToEnd(container) {
       const containerHeight = container.clientHeight;
       const contentHeight = container.scrollHeight;
@@ -280,6 +305,21 @@ export default {
   z-index: 9999;
 }
 .div-6 {
+  display: flex;
+  align-items: flex-start;
+  top: -1.7rem;
+  left: 1rem;
+  position: relative;
+}
+.button {
+  position: relative;
+  border-radius: 0.5rem;
+  padding: 0.2rem 1rem 0.2rem 1rem;
+  margin-bottom: 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+.div-7 {
   position: relative;
   border-radius: 0.75rem;
   padding: 1rem;
@@ -288,7 +328,7 @@ export default {
   margin-bottom: 1rem;
   margin-right: auto;
 }
-.div-7 {
+.div-8 {
   position: relative;
   border-radius: 0.75rem;
   padding: 1rem;

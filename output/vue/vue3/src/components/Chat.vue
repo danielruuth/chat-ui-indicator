@@ -103,6 +103,7 @@
             :chat="chat"
             :isTyping="isTyping"
             :botTyping="botTyping"
+            :handleSelectOption="onOptionSelected"
           ></chat-messages>
           <chat-input
             :handleTyping="handleTyping"
@@ -157,6 +158,7 @@ export default {
     "textColorMessageTimestamp",
     "chat",
     "botTyping",
+    "onOptionSelected",
     "onSend",
     "inputHeight",
     "bgColorInput",
@@ -185,6 +187,7 @@ export default {
         this.isTyping = "";
       }
     },
+    handleOptionSelected(message) {},
   },
 };
 </script>

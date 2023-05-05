@@ -10,12 +10,17 @@ export interface ChatMessagesProps  {
     textColorMessagePerson?: string;
     textColorMessageTimestamp?: string;
     isTyping: string,
-    botTyping:boolean
+    botTyping:boolean,
+    handleSelectOption?:(index:number) => void;
 }
 
 export default function ChatMessages(props: ChatMessagesProps) {
     const state = useStore({
         chatElementAdded: false,
+        selectOption: (index: number) => {
+            if (props.handleSelectOption) props.handleSelectOption(index);
+            console.log('Option selected')
+        },
     });
     onUpdate(() => {
         const container = document.getElementById("chat-container");
@@ -24,6 +29,8 @@ export default function ChatMessages(props: ChatMessagesProps) {
             state.chatElementAdded = false;
         }
     });
+
+    
 
     onUpdate(() => {
         const container = document.getElementById("chat-container");
@@ -150,6 +157,35 @@ export default function ChatMessages(props: ChatMessagesProps) {
                                 {chatMessage.message}
                             </div >
                         </div >
+                        <Show when={chatMessage.options}>
+                            <div css={{
+                                display:'flex',
+                                alignItems: 'flex-start',
+                                top:'-1.7rem',
+                                left: '1rem',
+                                position:'relative'
+                                }}
+                               
+                                >
+                                <For each={chatMessage.options}>{(option: any, index) =>
+                                    <button css={{
+                                        position: 'relative',
+                                        borderRadius: '0.5rem',
+                                        padding: '0.2rem 1rem 0.2rem 1rem',
+                                        marginBottom: '1rem',
+                                        marginRight: '0.5rem',
+                                        cursor:'pointer'
+                                    }}
+                                    style={{
+                                        backgroundColor: props.bgColorMessagePerson || '#025CDB',
+                                        color: props.textColorMessagePerson || 'white',
+                                    }}
+                                    onClick={(event) => state.selectOption(option)} 
+                                    >{option}</button>
+                                }
+                                </For>
+                            </div>
+                        </Show>
                     </Show>
                 </div >
             }
@@ -233,7 +269,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
           viewBox="0 0 40 24"
           preserveAspectRatio="xMidYMid"
         >
-          <circle cx="5" cy="12" r="5" fill="#6a6a6a">
+          <circle cx="5" cy="12" r="5" fill="rgba(255,255,255,1)">
             <animate
               attributeName="cy"
               calcMode="spline"
@@ -245,7 +281,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
               begin="-0.4322033898305085s"
             ></animate>
           </circle>
-          <circle cx="20" cy="12" r="5" fill="#979797">
+          <circle cx="20" cy="12" r="5" fill="rgba(255,255,255,.75)">
             <animate
               attributeName="cy"
               calcMode="spline"
@@ -257,7 +293,7 @@ export default function ChatMessages(props: ChatMessagesProps) {
               begin="-0.288135593220339s"
             ></animate>
           </circle>
-          <circle cx="35" cy="12" r="5" fill="#bdbdbd">
+          <circle cx="35" cy="12" r="5" fill="rgba(255,255,255,.5)">
             <animate
               attributeName="cy"
               calcMode="spline"

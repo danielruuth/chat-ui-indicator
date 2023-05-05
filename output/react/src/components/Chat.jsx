@@ -31,6 +31,8 @@ export default function Chat(props) {
     }
   }
 
+  function handleOptionSelected(message) {}
+
   return (
     <div>
       <div
@@ -150,6 +152,7 @@ export default function Chat(props) {
               chat={props.chat}
               isTyping={isTyping}
               botTyping={props.botTyping}
+              handleSelectOption={props.onOptionSelected}
             />
 
             <ChatInput
